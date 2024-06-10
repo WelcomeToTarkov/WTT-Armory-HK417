@@ -470,9 +470,7 @@ export class CustomItemService {
     private modifyQuests(tables: IDatabaseTables, jsonUtil: JsonUtil): void {
         // Define the new suppressors
         const newSuppressors = [
-            [
             "664b9a4798222d80ce536df6"
-            ]
         ];
 
         // Get the specific quest
