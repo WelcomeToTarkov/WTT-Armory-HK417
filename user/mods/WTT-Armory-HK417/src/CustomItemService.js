@@ -37,7 +37,7 @@ class CustomItemService {
     constructor() {
         this.configs = this.loadCombinedConfig();
     }
-    preAkiLoad(Instance) {
+    preSptLoad(Instance) {
         this.Instance = Instance;
     }
     postDBLoad() {
@@ -58,7 +58,7 @@ class CustomItemService {
             this.processWeaponPresets(itemConfig, itemId);
             this.processBotInventories(itemConfig, finalItemTplToClone, itemId);
             this.processTraders(itemConfig, itemId);
-            //this.modifyQuests(tables, jsonUtil);
+            this.modifyQuests(this.Instance.database, this.Instance.jsonUtil);
             numItemsAdded++;
         }
         if (numItemsAdded > 0) {
@@ -357,6 +357,57 @@ class CustomItemService {
                     console.log(` - Preset: ${JSON.stringify(preset)}`);
                 }
             });
+        }
+    }
+    /**
+ * Modify the quests in the given tables using the provided JSON utility.
+ *
+ * @param {IDatabaseTables} tables - the tables containing the quests
+ * @param {JsonUtil} jsonUtil - the JSON utility for cloning objects
+ * @return {void}
+ */
+    modifyQuests(tables, jsonUtil) {
+        // Define the new suppressors
+        const newSuppressors = [
+            "664b9a4798222d80ce536df6"
+        ];
+        // Get the specific quest
+        const punisher2 = tables.templates.quests["59c50c8886f7745fed3193bf"];
+        if (punisher2) {
+            // Extract existing suppressors
+            const existingPunisher2Suppressors = punisher2.conditions.AvailableForFinish[0].counter.conditions[0].weaponModsInclusive;
+            try {
+                // Clone the existing suppressors array
+                const updatedSuppressors = jsonUtil.clone(existingPunisher2Suppressors);
+                let modified = false;
+                // Flatten the nested arrays for easier checking
+                const flattenedSuppressors = updatedSuppressors.flat();
+                // Add new suppressors if they do not already exist
+                for (const suppressor of newSuppressors) {
+                    if (!flattenedSuppressors.includes(suppressor)) {
+                        updatedSuppressors.push([suppressor]);
+                        modified = true;
+                        if (this.Instance.debug) {
+                            console.log("Added new suppressor:", suppressor);
+                        }
+                    }
+                    else {
+                        if (this.Instance.debug) {
+                            console.log("Suppressor already exists:", suppressor);
+                        }
+                    }
+                }
+                // Only update the quest if modifications were made
+                if (modified) {
+                    punisher2.conditions.AvailableForFinish[0].counter.conditions[0].weaponModsInclusive = updatedSuppressors;
+                    if (this.Instance.debug) {
+                        console.log("Modified quest:", punisher2.conditions.AvailableForFinish[0].counter.conditions[0].weaponModsInclusive);
+                    }
+                }
+            }
+            catch (error) {
+                console.error("Error modifying quests:", error);
+            }
         }
     }
     /**

@@ -1,10 +1,10 @@
 {
     "name": "WTTArmoryHK417",
     "author": "Tron",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "license": "NCSA",
     "main": "src/mod.js",
-    "akiVersion": "~3.8",
+    "sptVersion": "~3.9",
 	"loadBefore": [],
 	"loadAfter": [],
     "isBundleMod": true,

@@ -34,10 +34,10 @@ const CustomItemService_1 = require("./CustomItemService");
 // Custom Trader Assort Items
 const CustomAssortSchemeService_1 = require("./CustomAssortSchemeService");
 const CustomWeaponPresets_1 = require("./CustomWeaponPresets");
-class WTTArmoryWilsonCombat {
+class WTTArmoryHK417 {
     Instance = new WTTInstanceManager_1.WTTInstanceManager();
     version;
-    modName = "WTTArmoryWilsonCombat";
+    modName = "WTTArmoryHK417";
     config;
     //#region CustomBosses
     customItemService = new CustomItemService_1.CustomItemService();
@@ -45,18 +45,18 @@ class WTTArmoryWilsonCombat {
     customAssortSchemeService = new CustomAssortSchemeService_1.CustomAssortSchemeService();
     customWeaponPresets = new CustomWeaponPresets_1.CustomWeaponPresets();
     debug = false;
-    // Anything that needs done on preAKILoad, place here.
-    preAkiLoad(container) {
+    // Anything that needs done on preSptLoad, place here.
+    preSptLoad(container) {
         // Initialize the instance manager DO NOTHING ELSE BEFORE THIS
-        this.Instance.preAkiLoad(container, this.modName);
+        this.Instance.preSptLoad(container, this.modName);
         this.Instance.debug = this.debug;
         // EVERYTHING AFTER HERE MUST USE THE INSTANCE
         this.getVersionFromJson();
         this.displayCreditBanner();
         // Custom Bosses
-        this.customItemService.preAkiLoad(this.Instance);
-        this.customAssortSchemeService.preAkiLoad(this.Instance);
-        this.customWeaponPresets.preAkiLoad(this.Instance);
+        this.customItemService.preSptLoad(this.Instance);
+        this.customAssortSchemeService.preSptLoad(this.Instance);
+        this.customWeaponPresets.preSptLoad(this.Instance);
     }
     // Anything that needs done on postDBLoad, place here.
     postDBLoad(container) {
@@ -84,9 +84,9 @@ class WTTArmoryWilsonCombat {
         this.Instance.logger.log(`[${this.modName}] ------------------------------------------------------------------------`, LogTextColor_1.LogTextColor.GREEN);
         this.Instance.logger.log(`[${this.modName}] Pre-Alpha development build`, LogTextColor_1.LogTextColor.GREEN);
         this.Instance.logger.log(`[${this.modName}] Developers:           Tron and the WTT Team`, LogTextColor_1.LogTextColor.GREEN);
-        this.Instance.logger.log(`[${this.modName}] Wilsonnnnnnnnnnnnnnn!`, LogTextColor_1.LogTextColor.GREEN);
+        this.Instance.logger.log(`[${this.modName}] HK417 go boom`, LogTextColor_1.LogTextColor.GREEN);
         this.Instance.logger.log(`[${this.modName}] ------------------------------------------------------------------------`, LogTextColor_1.LogTextColor.GREEN);
     }
 }
-module.exports = { mod: new WTTArmoryWilsonCombat() };
+module.exports = { mod: new WTTArmoryHK417() };
 //# sourceMappingURL=mod.js.map
