@@ -1,7 +1,7 @@
 {
     "name": "WTTArmoryHK417",
     "author": "Tron",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "license": "NCSA",
     "main": "src/mod.js",
     "sptVersion": "~3.9",
